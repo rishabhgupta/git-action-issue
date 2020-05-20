@@ -1,6 +1,6 @@
 name: issue
 author: rishabhgupta
-description: "Opens a github issue"
+description: Opens a github issue
 inputs:
   token:
     description: "Github Token"
