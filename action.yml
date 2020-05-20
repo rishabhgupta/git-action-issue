@@ -1,4 +1,4 @@
-name: issue
+name: open-issue
 author: rishabhgupta
 description: Opens a github issue
 inputs:
