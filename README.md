@@ -20,13 +20,13 @@ Object containing issue payload
 ## Example Usage
 
 ```yml
-- uses: ./.github/actions/issue
+- uses: rishabhgupta/git-action-issue@v2
   id: Issue
   with:
-    token: ${{ secrets.GITHUB_TOKEN }}
-    title: Title
-    body: body
-    assignees: 'rishabhgupta'
+      token: ${{ secrets.GITHUB_TOKEN }}
+      title: Title
+      body: body
+      assignees: 'rishabhgupta'
 - run: |
     echo ${{ steps.issue.outputs.issue }}
   ```
