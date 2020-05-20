@@ -1,19 +1,27 @@
-import * as core from '@actions/core'
-import {wait} from './wait'
+const core = require('@actions/core');
+const github = require('@actions/github');
 
-async function run(): Promise<void> {
+async function run() {
   try {
-    const ms: string = core.getInput('milliseconds')
-    core.debug(`Waiting ${ms} milliseconds ...`)
+    const token = core.getInput('token');
+    const title = core.getInput('title');
+    const body = core.getInput('body');
+    const assignees = core.getInput('assignees');
 
-    core.debug(new Date().toTimeString())
-    await wait(parseInt(ms, 10))
-    core.debug(new Date().toTimeString())
+    const octokit = new github.GitHub(token);
 
-    core.setOutput('time', new Date().toTimeString())
-  } catch (error) {
-    core.setFailed(error.message)
+    const response = await octokit.issues.create({
+      ...github.context.repo,
+      title,
+      body,
+      assignees: assignees ? assignees.split(',') : undefined
+    })
+
+    core.setOutput('issue', JSON.stringify(response.data));
+
+  } catch (err) {
+    core.setFailed(err.message)
   }
 }
 
-run()
+run();
